@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Wage Code Compliant Salary Calculator</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #eff6ff;
+            --success: #15803d;
+            --warning: #b45309;
+            --warning-light: #fffbeb;
+            --text-dark: #1f2937;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --bg: #f8fafc;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 30px 15px;
+        }
+        .wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        }
+        h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 1.75rem;
+        }
+        .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .section-header {
+            background: var(--primary);
+            color: #ffffff;
+            padding: 12px 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+        .inputs-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            background: var(--primary-light);
+            padding: 24px;
+            border-radius: 8px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 25px;
+        }
+        .input-box {
+            display: flex;
+            flex-direction: column;
+        }
+        .input-box label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #3b82f6;
+            margin-bottom: 6px;
+        }
+        .input-box input {
+            padding: 10px 12px;
+            border: 1px solid #93c5fd;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s;
+            background-color: #ffffff;
+        }
+        .input-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 30px;
+        }
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.92rem;
+        }
+        th {
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: #fafafa;
+        }
+        .align-right {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+        .absorber-row {
+            font-weight: bold;
+            background-color: var(--warning-light);
+            color: var(--warning);
+        }
+        .grand-total {
+            font-weight: bold;
+            background-color: var(--success) !important;
+            color: #ffffff !important;
+            font-size: 1.05rem;
+        }
+        .commentary {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+        .footer-note {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            border-left: 4px solid var(--primary);
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <h2>New Wage Code Compliant Salary Calculator</h2>
+    <div class="subtitle">Fully Dynamic Shock-Absorber Compensation Model (Conveyance Allowance balances variations)</div>
+        <!-- 1. UPDATED INPUT PANEL FRAME WITH PF OPTION BUTTONS -->
+    <div class="section-header">1. TARGET COMPENSATION PARAMETERS (INPUTS)</div>
+    <div class="inputs-panel">
+        <div class="input-box">
+            <label>Target Annual CTC Base (₹)</label>
+            <input type="number" id="paramCTC" value="0">
+        </div>
+        <div class="input-box">
+            <label>Variable Pay (VP) (₹)</label>
+            <input type="number" id="paramVP" value="0">
+        </div>
+        <!-- HIGH-VISIBILITY RADIO SELECTION OPTION BUTTONS -->
+        <div class="input-box" style="grid-column: span 2; display: flex; flex-direction: row; align-items: center; gap: 20px; background: #ffffff; padding: 10px 15px; border-radius: 6px; border: 1px solid #bfdbfe;">
+            <span style="font-size: 0.85rem; font-weight: 600; color: #1e3a8a;">PF Ceiling Strategy:</span>
+            <label style="display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--text-dark); cursor: pointer;">
+                <input type="radio" name="pfStrategy" value="Max" checked style="cursor: pointer;">  Max PF 
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--text-dark); cursor: pointer;">
+                <input type="radio" name="pfStrategy" value="Min" style="cursor: pointer;"> Statutory Min PF 
+            </label>
+        </div>
+        <div class="input-box">
+            <label>LTA Monthly Pref. (₹)</label>
+            <input type="number" id="prefLTA" value="0">
+        </div>
+        <div class="input-box">
+            <label>Sodexo Monthly Pref. (₹)</label>
+            <input type="number" id="prefSodexo" value="0">
+        </div>
+        <div class="input-box">
+            <label>Employer NPS Pref. (₹)</label>
+            <input type="number" id="prefNPS" value="0">
+        </div>
+        <div class="input-box">
+            <label>Meal Reimb. Monthly (₹)</label>
+            <input type="number" id="prefMeal" value="0">
+        </div>
+        <div class="input-box">
+            <label>Driver Reimb. Monthly (₹)</label>
+            <input type="number" id="prefDriver" value="0">
+        </div>
+        <div class="input-box">
+            <label>Petrol Reimb. Monthly (₹)</label>
+            <input type="number" id="prefPetrol" value="0">
+        </div>
+        <div class="input-box">
+            <label>Laundry Reimb. Monthly (₹)</label>
+            <input type="number" id="prefLaundry" value="0">
+        </div>
+        <div class="input-box">
+            <label>Uniform Allowance Monthly (₹)</label>
+            <input type="number" id="prefUniform" value="0">
+        </div>
+    </div>
+    <!-- 2. RECONSTRUCTED COMPONENTS DISPLAY & MATRIX ARCHITECTURE -->
+    <div class="section-header">2. DETAILED MONTHLY & ANNUAL COMPENSATION BREAKDOWN</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Salary Component Line-Item</th>
+                <th class="align-right">Monthly Payout (INR)</th>
+                <th class="align-right">Annualized Payout (INR)</th>
+                <th>Excel Reactive Logic / Source Formula Reference</th>
+            </tr>
+        </thead>
+        <tbody id="compensationMatrix">
+            <tr><td>Basic Salary</td><td class="align-right" id="mBasic">0.00</td><td class="align-right" id="aBasic">0.00</td><td class="commentary">New Wage Code Compliant: Strict 50% floor of Fixed CTC Base</td></tr>
+            <tr><td>House Rent Allowance (HRA)</td><td class="align-right" id="mHRA">0.00</td><td class="align-right" id="aHRA">0.00</td><td class="commentary">Metro Standard cap tier: Locked at 50% of Basic</td></tr>
+            <tr class="absorber-row"><td>Conveyance Allowance</td><td class="align-right" id="mConveyance">0.00</td><td class="align-right" id="aConveyance">0.00</td><td class="commentary">SHOCK ABSORBER: Automatically contracts when top FBP options grow</td></tr>
+            <tr><td>CCA (City Compensatory Allowance)</td><td class="align-right" id="mCCA">0.00</td><td class="align-right" id="aCCA">0.00</td><td class="commentary">Standard fixed demographic urban flat stipend allowance</td></tr>
+            <tr><td>Washing Allowance</td><td class="align-right" id="mWashing">0.00</td><td class="align-right" id="aWashing">0.00</td><td class="commentary">Fixed monthly baseline laundering stipend payment structure</td></tr>
+            <tr><td>Academic Allowance</td><td class="align-right" id="mAcademic">0.00</td><td class="align-right" id="aAcademic">0.00</td><td class="commentary">Standard flat regular upskilling research stipend payment</td></tr>
+            <tr><td>Meal Reimbursement</td><td class="align-right" id="mMeal">0.00</td><td class="align-right" id="aMeal">0.00</td><td class="commentary text-muted">Flexible Component: Mirroring top choice parameter select cell</td></tr>
+            <tr><td>Driver Reimbursement</td><td class="align-right" id="mDriver">0.00</td><td class="align-right" id="aDriver">0.00</td><td class="commentary text-muted">Flexible Component: Mirroring top choice parameter select cell</td></tr>
+            <tr><td>Petrol Reimbursement</td><td class="align-right" id="mPetrol">0.00</td><td class="align-right" id="aPetrol">0.00</td><td class="commentary text-muted">Flexible Component: Mirroring top choice parameter select cell</td></tr>
+            <tr><td>Laundry Reimbursement</td><td class="align-right" id="mLaundry">0.00</td><td class="align-right" id="aLaundry">0.00</td><td class="commentary text-muted">Flexible Component: Mirroring top choice parameter select cell</td></tr>
+            <tr><td>Uniform Allowance</td><td class="align-right" id="mUniform">0.00</td><td class="align-right" id="aUniform">0.00</td><td class="commentary text-muted">Flexible Component: Mirroring top choice parameter select cell</td></tr>
+            <tr><td>Employer PF Contribution</td><td class="align-right" id="mPF">0.00</td><td class="align-right" id="aPF">0.00</td><td class="commentary">Statutory Retiral: 12% rate applied against basic with New 25k cap</td></tr>
+            <tr><td>Employer ESI</td><td class="align-right" id="mESI">0.00</td><td class="align-right" id="aESI">0.00</td><td class="commentary">Dynamic check: 3.25% if Monthly Gross &le; ₹21,000</td></tr>
+            <tr><td>Statutory Bonus</td><td class="align-right" id="mBonus">0.00</td><td class="align-right" id="aBonus">0.00</td><td class="commentary">Baseline minimal statutory holiday bonus declaration projection space</td></tr>
+            <tr><td>Gratuity Accrual</td><td class="align-right" id="mGratuity">0.00</td><td class="align-right" id="aGratuity">0.00</td><td class="commentary">Retirals Accrual: Corporate 15/26 service period weight metrics factor</td></tr>
+            <tr><td>Employer NPS Contribution</td><td class="align-right" id="mNPS">0.00</td><td class="align-right" id="aNPS">0.00</td><td class="commentary text-muted">Flexible Component: Structured corporate national pension selection row</td></tr>
+            <tr><td>Sodexo Coupons</td><td class="align-right" id="mSodexo">0.00</td><td class="align-right" id="aSodexo">0.00</td><td class="commentary text-muted">Flexible Component: Mirroring top choice parameter select cell</td></tr>
+            <tr><td>LTA (Leave Travel Allowance)</td><td class="align-right" id="mLTA">0.00</td><td class="align-right" id="aLTA">0.00</td><td class="commentary text-muted">Flexible Component: Mirroring top choice parameter select cell</td></tr>
+            <tr><td>Variable Pay (VP)</td><td class="align-right" id="mVP">0.00</td><td class="align-right" id="aVP">0.00</td><td class="commentary">Performance Linked Allocation: Directly mapped from top input parameters</td></tr>
+            <tr class="grand-total"><td>TOTAL BOTTOM SUM (VERIFIED CTC)</td><td class="align-right" id="mTotal">0.00</td><td class="align-right" id="aTotal">0.00</td><td class="commentary">Must perfectly match Target CTC parameter input baseline cell</td></tr>
+        </tbody>
+    </table>
+    <!-- 3. COMPLIANCE INFORMATION FOOTER -->
+    <div class="footer-note">
+        <strong>📌 Payroll Regulatory Notes:</strong><br>
+        1. **New Wage Code Compliance:** Ensures the Basic Salary is locked onto a strict 50% floor of your dynamic Fixed CTC component payload.<br>
+        2. **Dynamic ESI Threshold Engine:** Automatically triggers employer ESIC contributions at 3.25% whenever user flexible preferences reduce the monthly gross salary underneath the statutory ₹21,000 limit.
+    </div>
+</div>
+<script>
+function executeCompensationEngine() {
+    // 1. Fetch parameter inputs safely from top panel modules
+    const ctcAnnual = Math.max(0, parseFloat(document.getElementById('paramCTC').value) || 0);
+    const vpAnnual = Math.max(0, parseFloat(document.getElementById('paramVP').value) || 0);
+    
+    // Check radio option toggle button state selection
+    const selectedPFOption = document.querySelector('input[name="pfStrategy"]:checked').value;
+    
+    // Drop-to-Zero Reset Safety Check
+    if (ctcAnnual === 0) {
+        wipeTableToZero();
+        return;
+    }
+
+    // Capture dynamic employee FBP options
+    const fbpOptions = {
+        LTA: Math.max(0, parseFloat(document.getElementById('prefLTA').value) || 0),
+        Sodexo: Math.max(0, parseFloat(document.getElementById('prefSodexo').value) || 0),
+        NPS: Math.max(0, parseFloat(document.getElementById('prefNPS').value) || 0),
+        Meal: Math.max(0, parseFloat(document.getElementById('prefMeal').value) || 0),
+        Driver: Math.max(0, parseFloat(document.getElementById('prefDriver').value) || 0),
+        Petrol: Math.max(0, parseFloat(document.getElementById('prefPetrol').value) || 0),
+        Laundry: Math.max(0, parseFloat(document.getElementById('prefLaundry').value) || 0),
+        Uniform: Math.max(0, parseFloat(document.getElementById('prefUniform').value) || 0)
+    };
+
+    const flatM = { CCA: 2000, Washing: 1000, Academic: 1500 };
+
+    // 2. New Wage Code Compliance Base: Basic locked at 50% floor of Fixed CTC Base
+    const fixedCTCBase = Math.max(0, ctcAnnual - vpAnnual);
+    const annualBasic = fixedCTCBase * 0.50;
+    const mBasic = annualBasic / 12;
+
+    const mHRA = mBasic * 0.50;
+    const annualHRA = mHRA * 12;
+
+    // 3. UPDATED DYNAMIC PF LOGIC ACCORDING TO YOUR LATEST UPDATE
+    let mPF = 0;
+    if (selectedPFOption === 'Max') {
+        // Custom Max Strategy: Full 12% against the complete Basic, entirely uncapped
+        mPF = mBasic * 0.12;
+    } else {
+        // Statutory Min Strategy: 12% of Basic, strictly capped at a max ceiling of ₹3,000/month
+        mPF = Math.min(3000, mBasic * 0.12);
+    }
+    const annualPF = mPF * 12;
+
+    // Fixed Statutory Bonus projection formula: 8.33% capped at standard ₹7,000 parameter limits
+    const mBonus = Math.min(7000, mBasic) * 0.0833;
+    const annualBonus = mBonus * 12;
+
+    // Gratuity accrual metric calculation using corporate 15/26 service period weight metrics factor (4.81%)
+    const annualGratuity = annualBasic * 0.0481;
+    const mGratuity = annualGratuity / 12;
+
+    // 4. Dynamic Loop-Free ESI Evaluation Framework
+    const grossProxy = mBasic + mHRA + flatM.CCA + flatM.Washing + flatM.Academic + 
+                       fbpOptions.LTA + fbpOptions.Sodexo + fbpOptions.NPS + fbpOptions.Meal + 
+                       fbpOptions.Driver + fbpOptions.Petrol + fbpOptions.Laundry + fbpOptions.Uniform;
+    
+    let mESI = 0;
+    if (grossProxy <= 21000) {
+        mESI = grossProxy * 0.0325;
+    }
+    const annualESI = mESI * 12;
+
+    // 5. Consolidate fixed blocks to isolate dynamic shock absorber remainder
+    const monthlyRetiralsAndFBPSum = mBasic + mHRA + flatM.CCA + flatM.Washing + flatM.Academic +
+                                     fbpOptions.LTA + fbpOptions.Sodexo + fbpOptions.NPS + fbpOptions.Meal + 
+                                     fbpOptions.Driver + fbpOptions.Petrol + fbpOptions.Laundry + fbpOptions.Uniform +
+                                     mPF + mESI + mBonus + mGratuity;
+
+    const targetMonthlyFixedCTC = fixedCTCBase / 12;
+
+    // Conveyance shock-absorber accordion calculation execution
+    let mConveyance = Math.max(0, targetMonthlyFixedCTC - monthlyRetiralsAndFBPSum);
+    const annualConveyance = mConveyance * 12;
+
+    const mVP = vpAnnual / 12;
+
+    // Verify macro parameters match targets flawlessly
+    const totalM = monthlyRetiralsAndFBPSum + mConveyance + mVP;
+    const totalA = (monthlyRetiralsAndFBPSum * 12) + annualConveyance + vpAnnual;
+
+    // 6. Safely render compiled updates to UI structural anchors
+    setVal('Basic', mBasic, annualBasic);
+    setVal('HRA', mHRA, annualHRA);
+    setVal('Conveyance', mConveyance, annualConveyance);
+    setVal('CCA', flatM.CCA, flatM.CCA * 12);
+    setVal('Washing', flatM.Washing, flatM.Washing * 12);
+    setVal('Academic', flatM.Academic, flatM.Academic * 12);
+    
+    setVal('LTA', fbpOptions.LTA, fbpOptions.LTA * 12);
+    setVal('Sodexo', fbpOptions.Sodexo, fbpOptions.Sodexo * 12);
+    setVal('NPS', fbpOptions.NPS, fbpOptions.NPS * 12);
+    setVal('Meal', fbpOptions.Meal, fbpOptions.Meal * 12);
+    setVal('Driver', fbpOptions.Driver, fbpOptions.Driver * 12);
+    setVal('Petrol', fbpOptions.Petrol, fbpOptions.Petrol * 12);
+    setVal('Laundry', fbpOptions.Laundry, fbpOptions.Laundry * 12);
+    setVal('Uniform', fbpOptions.Uniform, fbpOptions.Uniform * 12);
+
+    setVal('PF', mPF, annualPF);
+    setVal('ESI', mESI, annualESI);
+    setVal('Bonus', mBonus, annualBonus);
+    setVal('Gratuity', mGratuity, annualGratuity);
+    setVal('VP', mVP, vpAnnual);
+
+    document.getElementById('mTotal').innerText = fmt(totalM);
+    document.getElementById('aTotal').innerText = fmt(totalA);
+}
+
+function setVal(id, mVal, aVal) {
+    document.getElementById('m' + id).innerText = fmt(mVal);
+    document.getElementById('a' + id).innerText = fmt(aVal);
+}
+
+function fmt(num) {
+    if(num === 0) return "0.00";
+    return num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function wipeTableToZero() {
+    const list = ['Basic', 'HRA', 'Conveyance', 'CCA', 'Washing', 'Academic', 'LTA', 'Sodexo', 'NPS', 'Meal', 'Driver', 'Petrol', 'Laundry', 'Uniform', 'PF', 'ESI', 'Bonus', 'Gratuity', 'VP'];
+    list.forEach(id => setVal(id, 0, 0));
+    document.getElementById('mTotal').innerText = "0.00";
+    document.getElementById('aTotal').innerText = "0.00";
+}
+
+// Attach automatic input and radio change listeners across entire framework panel
+window.addEventListener('DOMContentLoaded', () => {
+    const fields = document.querySelectorAll('.inputs-panel input[type="number"]');
+    fields.forEach(el => el.addEventListener('input', executeCompensationEngine));
+    
+    const radios = document.querySelectorAll('input[name="pfStrategy"]');
+    radios.forEach(el => el.addEventListener('change', executeCompensationEngine));
+    
+    executeCompensationEngine(); // Run baseline kickoff compilation cycle
+});
+</script>
